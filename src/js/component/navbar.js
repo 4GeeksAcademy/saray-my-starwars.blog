@@ -1,17 +1,29 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
 
 export const Navbar = () => {
-	return (
-		<nav className="navbar navbar-light bg-light mb-3">
-			<Link to="/">
-				<span className="navbar-brand mb-0 h1">React Boilerplate</span>
-			</Link>
-			<div className="ml-auto">
-				<Link to="/demo">
-					<button className="btn btn-primary">Check the Context in action</button>
-				</Link>
-			</div>
-		</nav>
-	);
+  const { store, actions } = useContext(Context);
+  return (
+    <nav className="navbar navbar-light bg-light mb-3 container">
+      <Link to="/">
+        <img
+          style={{ objectFit: "cover" }}
+          className="navbar-brand mb-0 h1"
+          src="https://img.icons8.com/ios/50/000000/star-wars.png" />
+      </Link>
+      <div className="ml-auto">
+        <Link to="/">
+          <div className="nav-item dropdown">
+            <span className="nav-link dropdown-toggle bg-secondary text-white" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Favorites {store.favoritos.length}</span>
+            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+              {store.favoritos.map((item) => {
+                return <li><a className="dropdown-item"> <span onClick={() => { actions.eliminaFavorito(item.id) }} className={"fa fa-trash"}></span>{item.name}</a></li>
+              })}
+            </ul></div>
+        </Link>
+      </div>
+    </nav>
+  );
 };

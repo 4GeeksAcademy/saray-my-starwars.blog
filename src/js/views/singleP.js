@@ -3,23 +3,28 @@ import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 
-export const Single = props => {
+export const SingleP= props => {
 	const { store, actions } = useContext(Context);
 	const params = useParams();
 	useEffect(() => {
-		actions.obtienePersonaje(params.theid);
+		actions.obtienePlaneta(params.theid);
 	}, [])
-	console.table(store.personaje.properties);
+	console.table(store.planeta.properties);
 	return (
 		<div className="d-flex flex-row container ">
 			<div className="card mb-3" style={{ "maxWidth": "800px" }}>
 				<div className="row g-0">
 					<div className="col-md-4">
-						<img src={`https://starwars-visualguide.com/assets/img/characters/${params.theid}.jpg`} className="img-fluid rounded-start" alt="..." />
+						<img src={`https://starwars-visualguide.com/assets/img/planets/${params.theid}.jpg`} 
+						onError={(e) => {
+							e.target.onerror = null
+							e.target.src = 'https://img.icons8.com/ios/50/000000/star-wars.png'
+						}} 
+						className="img-fluid rounded-start" alt="..." />
 					</div>
 					<div className="col-md-8">
 						<div className="card-body">
-							<h5 className="card-title">{store.personaje.properties?.name}</h5>
+							<h5 className="card-title">{store.planeta.properties?.name}</h5>
 							<p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 						</div>
 					</div>
@@ -27,37 +32,36 @@ export const Single = props => {
 				<div className="row text-danger">
 					<div className="col-2 text-center">
 						<p>Name</p>
-						<p>{store.personaje.properties?.name}</p>
+						<p>{store.planeta.properties?.name}</p>
 					</div>
 					<div className="col-2 text-center">
-						<p>Birth Year</p>
-						<p>{store.personaje.properties?.birth_year}</p>
-					</div>
-					<div className="col-2 text-center">
-						<p>Gender</p>
-						<p>{store.personaje.properties?.gender}</p>
-					</div>
-					<div className="col-2 text-center">
-						<p>Height</p>
-						<p>{store.personaje.properties?.height}</p>
-					</div>
-					<div className="col-2 text-center">
-						<p>Skin Color</p>
-						<p>{store.personaje.properties?.skin_color}</p>
-					</div>
-					<div className="col-2 text-center">
-						<p>Eye Color</p>
-						<p>{store.personaje.properties?.eye_color}</p>
-					</div>
+					<p>Climate</p>
+					<p>{store.planeta.properties?.climate}</p>
 				</div>
+				<div className="col-2 text-center">
+					<p>Population</p>
+					<p>{store.planeta.properties?.population}</p>
+				</div>
+				<div className="col-2 text-center">
+					<p>Orbital Period</p>
+					<p>{store.planeta.properties?.orbital_period}</p>
+				</div>
+				<div className="col-2 text-center">
+					<p>Rotation Period</p>
+					<p>{store.planeta.properties?.rotation_period}</p>
+				</div>
+				<div className="col-2 text-center">
+					<p>Diameter</p>
+					<p>{store.planeta.properties?.diameter}</p>
+				</div>
+				</div>	
 			</div>
-
 			
 
 		</div>
 	);
 };
 
-Single.propTypes = {
+SingleP.propTypes = {
 	match: PropTypes.object
 };
